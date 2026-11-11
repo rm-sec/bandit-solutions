@@ -6,3 +6,7 @@
 - Set up GitHub, VS Code, Python, MySQL
 - Created bandit-solutions repo structure
 - Started OverTheWire Bandit
+
+### 2026-11-11
+- Completed levels 0-3
+- Learned about hidden files and SSH basics
