@@ -8,7 +8,7 @@ Read a file whose name contains spaces: spaces in this filename.
 2. Quote the whole path so the shell treats it as one argument
 
 ## Wrong Turns
-- Ran cat spaces in this filename — the shell split it into four
+- Ran cat spaces in this filename the shell split it into four
   arguments and reported "No such file or directory" for each fragment
 - Guessed at wildcards (cat s*) before understanding why quoting works
 

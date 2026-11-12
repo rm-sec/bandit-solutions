@@ -10,3 +10,7 @@
 ### 2026-11-11
 - Completed levels 0-3
 - Learned about hidden files and SSH basics
+
+### 2026-11-12
+- Completed levels 4-6
+- Strings and find commands were new concepts

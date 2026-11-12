@@ -16,7 +16,7 @@ Read a file whose name is a single dash (-).
 
 ## Concept Extracted
 Many Unix commands reserve - to mean "read from stdin" rather than
-a literal filename. This isn't a Bandit quirk — it's a convention
+a literal filename. This isn't a Bandit quirk it's a convention
 across grep, tar, ssh, git, and most CLI tools. Two general fixes:
 prefix the path (./-) or signal end-of-options (--). When a
 command hangs silently, suspect it's waiting on stdin, not crashed.
