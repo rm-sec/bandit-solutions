@@ -14,3 +14,7 @@
 ### 2026-11-12
 - Completed levels 4-6
 - Strings and find commands were new concepts
+
+### 2026-11-13
+- Completed levels 7-10
+- Grep, sort, uniq and base64 covered

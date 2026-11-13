@@ -28,3 +28,29 @@
 
 *Trap I hit:* cat on a binary dumps control characters into my terminal. Use
 strings instead.
+
+---
+
+## Text Processing
+
+| Task | Command |
+|------|---------|
+| Search for pattern | grep "word" filename |
+| Case-insensitive | grep -i "word" filename |
+| Count occurrences | grep -c "word" filename |
+| Sort lines | sort filename |
+| Remove duplicates | sort \| uniq |
+| Lines appearing exactly once | sort \| uniq -u |
+| Count unique values | sort \| uniq -c \| sort -n |
+
+*Trap I hit:* uniq without sort gives wrong results silently. It only compares
+adjacent lines.
+
+---
+
+## Encoding & Obfuscation
+
+| Task | Command |
+|------|---------|
+| Base64 encode | base64 filename |
+| Base64 decode | base64 -d filename |
