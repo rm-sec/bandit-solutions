@@ -54,3 +54,11 @@ adjacent lines.
 |------|---------|
 | Base64 encode | base64 filename |
 | Base64 decode | base64 -d filename |
+| ROT13 both cases | tr 'A-Za-z' 'N-ZA-Mn-za-m' |
+| MD5 hash | md5sum filename |
+| SHA256 hash | sha256sum filename |
+
+*Traps I hit:*
+- Ran base64 data.txt when I needed -d. Encoded instead of decoded.
+- Used tr 'a-z' 'n-za-m' and missed uppercase. Password had capitals.
+- Assumed "encoded" meant base64. Check the character set before choosing a decoder.
