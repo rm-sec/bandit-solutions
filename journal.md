@@ -25,3 +25,10 @@
   the actual clue plain letters, not A-Za-z0-9+/
 - Also forgot uppercase in my first tr command. Half-decoded output made me doubt
   the whole approach before spotting it
+
+  ### 2026-11-15
+- Level 12 (nested compression) slowest level so far, took most of the session
+- Kept trying to decompress without renaming to .gz/.bz2. The error message sent me
+  hunting for file corruption instead of an extension problem
+- Hit tar-inside-bzip2 and used tar -xzf out of habit. z means gzip. Wrong flag
+- Biggest takeaway: file reads magic bytes, extensions are decoration

@@ -62,3 +62,24 @@ adjacent lines.
 - Ran base64 data.txt when I needed -d. Encoded instead of decoded.
 - Used tr 'a-z' 'n-za-m' and missed uppercase. Password had capitals.
 - Assumed "encoded" meant base64. Check the character set before choosing a decoder.
+
+---
+
+## Compression & File Identification
+
+| Task | Command |
+|------|---------|
+| Reverse a hexdump | xxd -r data.txt > out |
+| Identify true file type | file out |
+| Decompress gzip | mv out out.gz && gzip -d out.gz |
+| Decompress bzip2 | bzip2 -d out.bz2 |
+| Extract tar (no compression flag) | tar xf out.tar |
+| Create temp workspace | mktemp -d |
+
+*Traps I hit:*
+- gzip refuses files not ending in .gz. Rename first; the error message lies about
+  corruption.
+- tar -xzf on a non-gzipped tar. z means gzip. Plain tar xf handles it.
+- Never edit or read from home directory copy to /tmp workspace first.
+
+*Principle:* file reads magic bytes. Extensions are decoration. Trust the header.
