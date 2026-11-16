@@ -32,3 +32,12 @@
   hunting for file corruption instead of an extension problem
 - Hit tar-inside-bzip2 and used tar -xzf out of habit. z means gzip. Wrong flag
 - Biggest takeaway: file reads magic bytes, extensions are decoration
+
+### 2026-11-16
+- Levels 13-14 (SSH key auth, then nc to a port)
+- chmod 600 on id_rsa after two failed logins. Read the rejection as a passphrase
+  problem when it was purely permissions
+- Made it worse with chmod 777 before thinking. Access grants and trust checks are
+  different things
+- Level 14 taught me services don't prompt. Stared at a blank terminal waiting for
+  one that never came

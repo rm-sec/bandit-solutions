@@ -83,3 +83,21 @@ adjacent lines.
 - Never edit or read from home directory copy to /tmp workspace first.
 
 *Principle:* file reads magic bytes. Extensions are decoration. Trust the header.
+
+---
+
+## SSH & Authentication
+
+| Task | Command |
+|------|---------|
+| Connect with password | ssh user@host -p 2220 |
+| Connect with key | ssh -i id_rsa user@host -p 2220 |
+| Correct key permissions | chmod 600 id_rsa |
+| Run remote command inline | ssh user@host -p 2220 "cat readme" |
+| Verify effective UID | id |
+
+*Traps I hit:*
+- "UNPROTECTED PRIVATE KEY FILE" is a permissions error, not a passphrase problem.
+  Read the whole message.
+- chmod 777 makes key rejection worse. Key permissions are a trust check.
+- Passing a command inline skips .bashrc entirely the fix for logout traps.
