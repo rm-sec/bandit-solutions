@@ -41,3 +41,12 @@
   different things
 - Level 14 taught me services don't prompt. Stared at a blank terminal waiting for
   one that never came
+
+### 2026-11-17
+- Levels 15-16 (TLS connection, then port scanning)
+- Retried nc repeatedly at level 15 instead of reading "SSL enabled" properly.
+  Also forgot -quiet and lost the response under certificate dump
+- First real nmap use. Scanned without -sV initially and got a wall of "unknown"
+- Echo ports returned my own password back and briefly convinced me I'd found the
+  right one
+- Copied the RSA key into home directory, hit the permission trap from level 13 again

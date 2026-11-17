@@ -2,9 +2,9 @@
 
 ## Approach
 Each level is documented with:
-- *Reasoning* — how I approached the problem, including wrong turns
-- *Concept extracted* — the core skill this level tested
-- *Verification* — how I confirmed my solution worked
+- *Reasoning*: how I approached the problem, including wrong turns
+- *Concept extracted*: the core skill this level tested
+- *Verification*: how I confirmed my solution worked
 
 ## Safety
 All work is done on localhost through OverTheWire SSH. No external scanning.

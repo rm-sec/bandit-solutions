@@ -101,3 +101,23 @@ adjacent lines.
   Read the whole message.
 - chmod 777 makes key rejection worse. Key permissions are a trust check.
 - Passing a command inline skips .bashrc entirely the fix for logout traps.
+
+---
+
+## Networking
+
+| Task | Command |
+|------|---------|
+| Connect to a port | nc localhost 30000 |
+| Send data in one line | echo "DATA" \| nc localhost 30000 |
+| Listen on a port | nc -l -p 4444 |
+| TLS connection | openssl s_client -quiet -connect localhost:30001 |
+| Scan with version detection | nmap -sV -p 31000-32000 localhost |
+| SSL-aware alternative to nc | ncat --ssl host port |
+
+*Traps I hit:*
+- Services don't prompt you. A blank cursor means "send something."
+- Without -quiet, certificate spam buries the actual response.
+- Scanning without -sV returns "unknown" for everything. Version detection is the
+  point, not an optional extra.
+- Echo services return your own input to waste your time. Not a match.
