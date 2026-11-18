@@ -121,3 +121,18 @@ adjacent lines.
 - Scanning without -sV returns "unknown" for everything. Version detection is the
   point, not an optional extra.
 - Echo services return your own input to waste your time. Not a match.
+
+---
+
+## Privilege Escalation
+
+| Task | Command |
+|------|---------|
+| Find SUID binaries | find / -perm -4000 2>/dev/null |
+| Confirm binary type | file binaryname |
+| Execute as binary owner | ./binary cat /etc/bandit_pass/banditXX |
+| Test before trusting | ./binary id |
+| Check file permissions | ls -l |
+
+*Trap I hit:* Tried sudo ./bandit20-do. No sudo privileges. SUID and sudo are
+different mechanisms, SUID is a file property, sudo is a policy grant.

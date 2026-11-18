@@ -50,3 +50,11 @@
 - Echo ports returned my own password back and briefly convinced me I'd found the
   right one
 - Copied the RSA key into home directory, hit the permission trap from level 13 again
+
+### 2026-11-18
+- Levels 17-19 (diff, non-interactive SSH, first SUID)
+- Tried comparing two large files by eye before reaching for diff. Ten minutes lost
+- Grabbed the < line instead of > and had to re-read diff's direction convention
+- Level 18: logged in four times hoping the logout was flaky. Repeating a failing
+  action isn't debugging. Passing the command inline solved it immediately
+- Level 19 SUID finally clicked after running id inside the binary
