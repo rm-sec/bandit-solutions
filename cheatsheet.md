@@ -136,3 +136,19 @@ adjacent lines.
 
 *Trap I hit:* Tried sudo ./bandit20-do. No sudo privileges. SUID and sudo are
 different mechanisms, SUID is a file property, sudo is a policy grant.
+
+---
+
+## Cron & Scheduled Jobs
+
+| Task | Command |
+|------|---------|
+| List system cron jobs | ls /etc/cron.d/ |
+| Read a cron entry | cat /etc/cron.d/cronjob_banditXX |
+| Read the script it calls | cat /usr/bin/cronjob_banditXX.sh |
+
+*Traps I hit:*
+- crontab -l lists my jobs. System-wide jobs live in /etc/cron.d/. Different
+  thing entirely.
+- Hashed the string for my user when the script runs as the target user. The
+  script's identity determines the output path.

@@ -58,3 +58,13 @@
 - Level 18: logged in four times hoping the logout was flaky. Repeating a failing
   action isn't debugging. Passing the command inline solved it immediately
 - Level 19 SUID finally clicked after running id inside the binary
+
+### 2026-11-19
+- Levels 20-22 (listener + SUID, cron world-readable leak)
+- Two-terminal coordination felt awkward. Started suconnect first and watched it
+  hang with no explanation of why
+- Port numbers have to match across both commands and mine didn't at first
+- Level 21: ran crontab -l and got permission denied. That lists my jobs, not
+  system-wide ones. Different location entirely
+- Almost dismissed /tmp as noise because the filename was a hash, not something
+  obvious like "password"
