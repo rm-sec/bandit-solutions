@@ -68,3 +68,14 @@
   system-wide ones. Different location entirely
 - Almost dismissed /tmp as noise because the filename was a hash, not something
   obvious like "password"
+
+### 2026-11-20
+- Levels 23-24 (predictable hash filename, writing my own script into cron's path)
+- Hashed "I am user bandit22" while logged in as bandit22. Got my own password back,
+  which was useless. The script's identity determines the target, not mine
+- Level 24 was the highlight. Forgot the shebang, got silent failure with no error
+- Then left the output directory non-writable so bandit24 couldn't write there
+  invisible because stderr went to /dev/null
+- Checked after ten seconds, saw empty, nearly abandoned a correct approach. It runs
+  once per minute
+- First level where I felt like I was attacking something rather than following steps

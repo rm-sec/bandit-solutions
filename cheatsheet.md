@@ -146,9 +146,20 @@ different mechanisms, SUID is a file property, sudo is a policy grant.
 | List system cron jobs | ls /etc/cron.d/ |
 | Read a cron entry | cat /etc/cron.d/cronjob_banditXX |
 | Read the script it calls | cat /usr/bin/cronjob_banditXX.sh |
+| Compute a predictable filename | echo "I am user bandit23" \| md5sum \| cut -d ' ' -f 1 |
+| Check file ownership | stat --format "%U" ./script.sh |
+| Watch a file for writes | tail -f password |
 
 *Traps I hit:*
 - crontab -l lists my jobs. System-wide jobs live in /etc/cron.d/. Different
   thing entirely.
 - Hashed the string for my user when the script runs as the target user. The
   script's identity determines the output path.
+  - Wrote a script with no shebang → silent failure, no error at all.
+- Left the output directory non-writable → cron couldn't write, but stderr went to
+  /dev/null so nothing surfaced.
+- Cron ran once per minute. Checking after ten seconds made a working approach look
+  broken.
+
+*Principle:* Silent failure usually means output is being discarded somewhere.
+Check where stdout and stderr go before doubting the logic.
