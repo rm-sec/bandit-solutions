@@ -163,3 +163,25 @@ different mechanisms, SUID is a file property, sudo is a policy grant.
 
 *Principle:* Silent failure usually means output is being discarded somewhere.
 Check where stdout and stderr go before doubting the logic.
+
+---
+
+## Brute Forcing
+
+| Task | Command |
+|------|---------|
+| Zero-padded number range | seq -w 0000 9999 |
+| Brute force over one connection | for pin in $(seq -w 0000 9999); do echo "PASS $pin"; done \| nc localhost 30002 |
+| Isolate the successful line | ... \| grep -v "Wrong" |
+
+*Traps I hit:*
+- One connection per attempt was slow and mostly failed with connection refused
+  too many sockets in TIME_WAIT. Reusing a single connection made it instant.
+- seq 0 9999 produces unpadded numbers. Service expected four digits. Needed -w.
+
+*Principle:* 10^4 is nothing. Brute forcing only fails when the search space is
+genuinely large.
+
+---
+
+## Shell Escapes
