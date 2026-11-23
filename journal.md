@@ -79,3 +79,26 @@
 - Checked after ten seconds, saw empty, nearly abandoned a correct approach. It runs
   once per minute
 - First level where I felt like I was attacking something rather than following steps
+
+### 2026-11-22
+- Level 25-26 (brute forcing a 4-digit PIN,restricted shell escape)
+- Typed about fifteen PINs by hand before the absurdity landed
+- My first loop opened a fresh connection per attempt. Slow, mostly connection refused
+  from sockets stuck in TIME_WAIT. Reusing one connection fixed everything
+- seq 0 9999 gave unpadded numbers; service wanted four digits. Needed seq -w
+- Level 26 has hardest single level in the wargame
+- Reconnected repeatedly hoping for a race condition. There wasn't one
+- Resized the window after connecting, which did nothing since the pager had already
+  decided the content fit. Had to disconnect, resize, reconnect
+- Typed !bash inside vi and got thrown straight back out. Needed :set shell= first
+  because the configured shell was still restricted
+- The :e shortcut for reading the file directly feels like cheating but is legitimate
+
+### 2026-11-23
+- Levels 27-28 (SUID again, then git clone and deleted history)
+- Level 27 took under a minute versus several minutes at level 19. Same pattern,
+  faster recognition that gap is the actual measure of progress here
+- Level 28: cloned into home directory, permission denied. Should have known by now
+- Missed remote branches with plain git branch. Needed -a; there were no local ones
+- Spent too long looking for other files at 28 when the answer was edited out of the
+  README two commits back

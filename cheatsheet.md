@@ -137,6 +137,9 @@ adjacent lines.
 *Trap I hit:* Tried sudo ./bandit20-do. No sudo privileges. SUID and sudo are
 different mechanisms, SUID is a file property, sudo is a policy grant.
 
+*Note:* Recognised this pattern in under a minute at level 27 versus several minutes
+at level 19. Same technique, faster recall.
+
 ---
 
 ## Cron & Scheduled Jobs
@@ -185,3 +188,21 @@ genuinely large.
 ---
 
 ## Shell Escapes
+
+---
+
+## Git Forensics
+
+| Task | Command |
+|------|---------|
+| Clone into current directory | git clone ssh://user@localhost/path/repo . |
+| All branches including remote | git branch -a |
+| Full history across branches | git log --all --oneline |
+| Show a specific commit | git show <hash> |
+| History of one file | git log -p README.md |
+| Switch branch | git checkout dev |
+| List tags | git tag |
+| Show tag annotation | git show <tagname> |
+
+*Traps I hit:*
+- Omitting the trailing . created nested repo/repo and broke every relative path.

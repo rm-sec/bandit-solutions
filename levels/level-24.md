@@ -1,44 +1,49 @@
-# Bandit Level 23 → 24
+# Bandit Level 24 → 25
 
 ## Problem
-Another cron job runs as bandit23 every minute. Unlike Level 22, this
-script doesn't use a hardcoded filename it generates one dynamically
-by computing an MD5 hash of the string "I am user $myname". You need to
-predict that filename by reproducing the hash yourself.
+A cron job runs every minute as bandit24. It iterates over all files in
+`/var/spool/bandit24/foo`, executes them (with a 60-second timeout),
+then deletes them. You can write into that directory. If you place an
+executable script there, it will run **as bandit24**.
 
 ## Approach
-1. cat /etc/cron.d/cronjob_bandit23 find the script path
-2. cat /usr/bin/cronjob_bandit23.sh read the logic:
-   - myname=$(whoami) → becomes "bandit23" when cron runs it
-   - mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
-     → MD5 hash of "I am user bandit23"
-   - Copies /etc/bandit_pass/$myname to /tmp/$mytarget
-3. Reproduce the hash manually:
-   echo "I am user bandit23" | md5sum | cut -d ' ' -f 1
-4. Read the resulting file:
-   cat /tmp/<hash>
+1. `cat /usr/bin/cronjob_bandit24.sh` confirms the loop executes any
+   file placed in `/var/spool/bandit24/foo`
+2. Create your own script in a temp working directory:
+   bash
+   #!/bin/bash
+   cat /etc/bandit_pass/bandit24 > /tmp/pass24
+   chmod 666 /tmp/pass24
+   
+3. Make it executable and copy it into the spool directory
+4. Wait ~60 seconds for the next cron tick
+5. `cat /tmp/pass24` the password
 
 ## Wrong Turns
-- Tried reading files in /tmp with random names hoping to stumble on
-  the password there were dozens of unrelated files from other levels
-- Assumed the filename would be a simple pattern like "bandit23.txt"
-  instead of realizing it was computed via hashing
-- Ran md5sum without piping input and got stuck waiting for stdin;
-  forgot that echo ... | md5sum feeds the string directly
+- Wrote the script directly inside `/var/spool/bandit24/foo` using nano,
+  but forgot to `chmod +x` cron skipped it silently because it wasn't
+  executable
+- Put the output file in my home directory instead of `/tmp` couldn't
+  read it afterward because bandit24 created it with restrictive perms;
+  always add `chmod 666` on the output
+- Forgot the official warning that scripts get deleted after execution
+  panicked when my script vanished, not realizing that was expected behavior
 
 ## Concept Extracted
-This introduces *deterministic output prediction*. When a script uses
-a hash function (MD5, SHA) on known input, you can reproduce its output
-without executing the script. This exact technique appears in real-world
-scenarios: predicting cache filenames, guessing temporary file paths,
-and even some authentication token generation schemes. Also note the
-use of cut -d ' ' -f 1 parsing command output into usable values is
-a core shell scripting skill.
+This is **code execution via writable automation paths** one of the
+most common real-world privilege escalation techniques. Any scheduled
+task (cron, systemd timer, Windows Task Scheduler) that runs privileged
+and reads from a world-writable directory is exploitable. This exact
+class of bug has earned CVEs in production software. Note also the
+defense-in-depth lesson: even though the script times out and deletes
+itself, the attacker only needs one successful execution to exfiltrate
+data elsewhere first.
 
 ## Key Commands
-- cat /usr/bin/cronjob_bandit23.sh
-- echo "I am user bandit23" | md5sum | cut -d ' ' -f 1
-- cat /tmp/<hash>
+- `cat /usr/bin/cronjob_bandit24.sh`
+- `mktemp -d && cd $_` (safe working directory)
+- `chmod 777 exploit.sh && cp exploit.sh /var/spool/bandit24/foo/`
+- `sleep 65 && cat /tmp/pass24`
 
 ## Verification
-Password obtained successfully and verified by SSH login as bandit24.
+Password obtained successfully and verified by SSH login as bandit25.
