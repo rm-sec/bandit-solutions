@@ -102,3 +102,13 @@
 - Missed remote branches with plain git branch. Needed -a; there were no local ones
 - Spent too long looking for other files at 28 when the answer was edited out of the
   README two commits back
+
+### 2026-11-24
+- Levels 29-31 (branches, tags, bare repository internals)
+- Checked sploits-dev first because the name sounded more interesting. Nothing there.
+  dev had it
+- At level 30 exhausted branches then started grepping raw .git objects blindly.
+  Would have worked eventually but that's brute force, not understanding
+- Used lightweight git show on a tag expecting a diff, confused when it printed a
+  commit. Needed the annotation message, not the tree
+- Bare repos having no working checkout threw me at 31 hadn't seen one before

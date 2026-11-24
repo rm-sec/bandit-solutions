@@ -192,6 +192,7 @@ genuinely large.
 ---
 
 ## Git Forensics
+Added 2026-11-23 (level 28), extended through 2026-11-24 (levels 29–31)
 
 | Task | Command |
 |------|---------|
@@ -203,6 +204,18 @@ genuinely large.
 | Switch branch | git checkout dev |
 | List tags | git tag |
 | Show tag annotation | git show <tagname> |
+| Inspect object type | git cat-file -t <ref> |
+| List refs directly | ls .git/refs/ |
+| File contents at a ref | git show <ref>:<path> |
+| Recursive tree listing | git ls-tree -r <ref> |
 
 *Traps I hit:*
 - Omitting the trailing . created nested repo/repo and broke every relative path.
+- Plain git branch shows local branches only. Remote ones need -a and there
+  were no local ones.
+- git show tagname printed a commit and confused me. I wanted the annotation
+  message, not the tree diff.
+- Bare repositories have no working checkout. An apparently empty directory is normal.
+
+*Principle:* Deleting a secret from HEAD doesn't delete it from history. Rotation
+matters more than scrubbing.
