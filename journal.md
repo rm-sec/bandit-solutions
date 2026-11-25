@@ -112,3 +112,12 @@
 - Used lightweight git show on a tag expecting a diff, confused when it printed a
   commit. Needed the annotation message, not the tree
 - Bare repos having no working checkout threw me at 31 hadn't seen one before
+
+### 2026-11-25
+- Levels 32-33 (uppercase-restricted shell, final password)
+- Typed lowercase commands repeatedly assuming case-insensitivity. Linux isn't
+- Tried quoting to defeat the transformation. Doesn't help the filter applies
+  before parsing. Escaping by changing execution context ($0) was the actual answer,
+  same shape as level 26
+- Ran ls on /etc/bandit_pass/ after escaping and got denied, but direct cat worked.
+  Listing a directory and reading a file in it are separate permissions

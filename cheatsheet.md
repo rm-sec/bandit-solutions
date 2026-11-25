@@ -189,10 +189,26 @@ genuinely large.
 
 ## Shell Escapes
 
+| Context | Escape |
+|---------|--------|
+| vi opened from a pager | :set shell=/bin/bash then :shell |
+| Read a file directly in vi | :e /etc/bandit_pass/banditXX |
+| Restricted shell | $0 to spawn a child shell |
+| Inspect what changed | env |
+| Find a user's login shell | grep username /etc/passwd |
+
+*Traps I hit:*
+- Resizing the terminal after connecting does nothing the pager already decided
+  the content fit. Disconnect, resize, reconnect.
+- !bash inside vi threw me straight back out. Set :set shell= first, because the
+  configured shell was still restricted.
+- Quoting can't defeat a filter applied before parsing. Change execution context
+  instead of trying to escape the payload.
+
+*Reference:* GTFOBins catalogs these for every common binary.
 ---
 
 ## Git Forensics
-Added 2026-11-23 (level 28), extended through 2026-11-24 (levels 29–31)
 
 | Task | Command |
 |------|---------|
@@ -219,3 +235,20 @@ Added 2026-11-23 (level 28), extended through 2026-11-24 (levels 29–31)
 
 *Principle:* Deleting a secret from HEAD doesn't delete it from history. Rotation
 matters more than scrubbing.
+
+---
+
+## Cross-Cutting Principles
+
+1. *Read the full error message.* My two worst time sinks (levels 13 and 16) were
+   the same misread permissions error, repeated.
+2. *file over extension, magic bytes over filename.* Content is truth.
+3. *Filters fail on representation, not capability.* Blocked spaces have substitutes;
+   blocked keywords survive double-encoding. Blacklists need one gap; whitelists need none.
+4. *Escaping beats filtering.* When a wrapper transforms input, change the execution
+   context rather than fighting the transformation.
+5. *Reaching for brute force is a signal I stopped thinking.* Grepping raw git
+   objects and hand-typing PINs were both avoidance, not method.
+6. *Directory listing and file reading are separate permissions.* Denied on one
+   doesn't mean denied on the other.
+7. *Recognition speed is the real metric.* SUID took minutes at 19, seconds at 27.
